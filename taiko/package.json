@@ -1,0 +1,14 @@
+{
+  "name": "taiko",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "taiko test.js --observe"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "taiko": "^1.3.4"
+  }
+}

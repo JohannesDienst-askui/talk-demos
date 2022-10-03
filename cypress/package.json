@@ -1,0 +1,17 @@
+{
+  "name": "cypress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cypress-xpath": "^2.0.1"
+  },
+  "devDependencies": {
+    "cypress": "^10.8.0"
+  }
+}
