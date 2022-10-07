@@ -1,3 +1,7 @@
+# ignore local practice page
+cypress/XPathPracticePage.html
+cypress/XPathPracticePage_files/**
+
 # macOS
 .DS_Store
 
