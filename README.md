@@ -2,6 +2,8 @@
 
 We use the [Selectorshub Practice Page](https://selectorshub.com/xpath-practice-page/) which you can also download to your local machine to not be dependend on a internet connection.
 
+Also do not forget to install node.js LTS for the examples to work!
+
 ## Cypress
 See the [cypress docs](https://docs.cypress.io/) for more information.
 
@@ -9,6 +11,7 @@ Run the tests from your terminal
 
 ```shell
 cd cypress
+npm install
 npm run test
 ```
 
@@ -19,6 +22,7 @@ Run the tests from your terminal
 
 ```shell
 cd taiko
+npm install
 npm run test
 ```
 
@@ -32,5 +36,6 @@ Run the tests from your terminal
 
 ```shell
 cd askui
+npm install
 npm run test
 ```
