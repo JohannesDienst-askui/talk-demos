@@ -3,13 +3,14 @@ describe('practice page spec', () => {
 
     cy.visit('https://selectorshub.com/xpath-practice-page/')
    
-    cy.xpath('(//input[@name=\'company\'])[1]').type('mycompany')
-
-    cy.get('#userName').shadow().find('#kils').type('superuser')
-
+    cy.xpath('(//input[@name=\'company\'])[1]')
+      .type('mycompany')
   })
 })
 
 
 
 
+    // cy.xpath('(//input[@name=\'company\'])[1]').type('mycompany')
+
+    // cy.get('#userName').shadow().find('#kils').type('superuser')

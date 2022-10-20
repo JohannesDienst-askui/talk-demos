@@ -7,6 +7,12 @@ const config: Config.InitialOptions = {
   sandboxInjectedGlobals: [
     'Math',
   ],
+  reporters: [
+    "default",
+    ["jest-html-reporter", {
+      "pageTitle": "Test Report"
+    }]
+  ]
 };
 
 // eslint-disable-next-line import/no-default-export

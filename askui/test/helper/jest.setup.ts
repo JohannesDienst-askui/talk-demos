@@ -15,15 +15,15 @@ beforeAll(async () => {
      * Select the display you want to run your tests on, display 0 is your main display;
      * ignore if you have only one display
      */
-    display: 0,
+    display: 1,
   });
 
   await uiController.start();
 
   aui = await UiControlClient.build({
     credentials: {
-      workspaceId: '',
-      token: ''
+      workspaceId: 'd928f70b-7ff0-4cea-b9f6-c6522a2eb492',
+      token: 'AXnJAUzJQPgQwwudmLWh'
     }
   });
 

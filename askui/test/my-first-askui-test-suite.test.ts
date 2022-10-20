@@ -6,20 +6,24 @@ describe('jest with askui', () => {
     // Run this to see what the the tool sees
     // Comment it out for the following tests.
     await aui.annotateInteractively();
-
-    await aui.mouseLeftClick().exec();
-    await aui
-      .typeIn('askui')
-      .textfield()
-      .contains()
-      .text()
-      .withText('Enter your Company').exec();
-
-     await aui
-      .typeIn('askui')
-      .textfield()
-      .below()
-      .text()
-      .withText('Password').exec();
+  
   });
 });
+
+
+
+
+    // await aui.mouseLeftClick().exec();
+    // await aui
+    //   .typeIn('askui')
+    //   .textfield()
+    //   .contains()
+    //   .text()
+    //   .withText('Enter your Company').exec();
+
+    //  await aui
+    //   .typeIn('askui')
+    //   .textfield()
+    //   .below()
+    //   .text()
+    //   .withText('Password').exec();
