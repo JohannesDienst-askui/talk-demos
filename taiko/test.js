@@ -2,7 +2,10 @@ const { openBrowser, goto, write, closeBrowser, textBox, waitFor } = require('ta
 
 (async () => {
     await openBrowser();
-    await goto("file:///Users/joe/github/talk-demos/cypress/XpathPracticePage.html");
+    await goto('https://selectorshub.com/xpath-practice-page/');
+
+    await textBox(below('Submit')).exists();
+    await write('taiko test automation', into(textBox(below('Submit'))));
 
     await click(textBox(near('Submit')));
 
@@ -10,12 +13,3 @@ const { openBrowser, goto, write, closeBrowser, textBox, waitFor } = require('ta
     await waitFor(3000);
     await closeBrowser();
 })();
-
-
-
-    // await textBox(below('Submit')).exists();
-    // await write("taiko test automation", into(textBox(below('Submit'))));
-
-    // await click(textBox(near('Submit')));
-
-
