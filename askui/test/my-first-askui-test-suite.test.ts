@@ -6,7 +6,15 @@ describe('jest with askui', () => {
 
     // Run this to see what the the tool sees
     // Comment it out for the following tests.
-    await aui.annotateInteractively();
+    // await aui.annotateInteractively();
+
+    await aui.mouseLeftClick().exec();
+    await aui
+      .typeIn('user@askui.com')
+      .textfield()
+      .contains()
+      .text()
+      .withText('Enter email').exec();
 
     // Regain focus
     await aui.mouseLeftClick().exec();
@@ -52,6 +60,5 @@ describe('jest with askui', () => {
 
     // You can also scroll
     await aui.pressKey('pagedown').exec();
-
   });
 });

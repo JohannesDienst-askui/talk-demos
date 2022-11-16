@@ -9,7 +9,8 @@ describe('practice page spec', () => {
     // CSS
     cy.get('#pass').type('mytotallySecretPa$$');
 
-    // Does not work because 'readonly' without focus
+    // Does not work because the textfield is
+    // 'readonly' without focus
     // cy.get('#userId').type('myUsername');
 
     // Shadow DOM
@@ -20,5 +21,7 @@ describe('practice page spec', () => {
 
     // Relational Selector
     cy.get('input').closest('#inp_val').type('Really close')
+
+    cy.get('#userId').type('myUsername');
   })
 })
