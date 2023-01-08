@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="5" failures="0" errors="0" time="27.791">
+  <testsuite name="jest with askui" errors="0" failures="0" skipped="4" timestamp="2023-01-07T22:11:12" time="27.747" tests="5">
+    <testcase classname="jest with askui annotate" name="jest with askui annotate" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="jest with askui passes ReCaptcha test" name="jest with askui passes ReCaptcha test" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="jest with askui Fills out a complex navigation form" name="jest with askui Fills out a complex navigation form" time="26.682">
+    </testcase>
+    <testcase classname="jest with askui should fill up the textfields and push buttons" name="jest with askui should fill up the textfields and push buttons" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="jest with askui Login in Github with 2 FA and Lastpass App on Android device" name="jest with askui Login in Github with 2 FA and Lastpass App on Android device" time="0">
+      <skipped/>
+    </testcase>
+  </testsuite>
+</testsuites>
