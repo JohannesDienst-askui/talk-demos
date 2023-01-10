@@ -45,7 +45,7 @@ describe('jest with askui', () => {
     await aui.click().button().withText('Log In').exec();
   });
 
-  xit('should fill up the textfields and push buttons', async () => {
+  it('should fill up the textfields and push buttons', async () => {
 
     await auiAndroid.click().button().withText('reset').exec();
     await auiAndroid.waitFor(2000).exec();
@@ -54,17 +54,21 @@ describe('jest with askui', () => {
     // repeat this as many times as the textfields
     await auiAndroid.click().text().withTextRegex('nter[\\s]{0,1}your[\\s]{0,1}usernam').exec();
     await auiAndroid.waitFor(1000).exec();
-    await auiAndroid.type('askui').exec();
+    await setTextAndroid('askui', auiAndroid);
+    await auiAndroid.pressAndroidKey("back").exec();
+
     await auiAndroid.click().text().withTextRegex('nter[\\s]{0,1}your[\\s]{0,1}emai').exec();
     await auiAndroid.waitFor(1000).exec();
-    await auiAndroid.type('askui@askui.com').exec();
+    await setTextAndroid('askui', auiAndroid);
+    await auiAndroid.pressAndroidKey("back").exec();
     
     // Click and type the address
     await auiAndroid.click().text().withTextRegex('nter[\\s]{0,1}your[\\s]{0,1}addres').exec();
     await auiAndroid.waitFor(1000).exec();
-    await auiAndroid.type('Emmy-Noether-Straße 17').exec();
-    
-    // Pressing enter is the equivelant to pressing the return button on the on-screen-keyboard
+    await setTextAndroid('Emmy-Noether-Strasse 17', auiAndroid);
+    await auiAndroid.pressAndroidKey("back").exec();
+
+    // Pressing enter is the equivalent to pressing the return button on the on-screen-keyboard
     // This gets rid of the focus from the textfield
     await auiAndroid.pressAndroidKey('enter').exec();
     
@@ -167,7 +171,7 @@ async function execOnAndroidShell(keycode: number, uiControlClient: UiControlCli
   await uiControlClient.execOnShell('input keyevent "' + keycode + '"').exec();
 }
 
-async function setText(text: String, uiControlClient: UiControlClient) {
+async function setTextAndroid(text: String, uiControlClient: UiControlClient) {
   for (var i = 0; i < text.length; i++) {
       const elementCode = text.charCodeAt(i);
       const elementChar = text.charAt(i);
@@ -179,12 +183,11 @@ async function setText(text: String, uiControlClient: UiControlClient) {
       }
       else if (elementCode >= 65 && elementCode <= 90) {
         /** A~Z **/
-        // TODO We have to press shift here somehow
-        await execOnAndroidShell(elementCode-36, uiControlClient);
+        await uiControlClient.execOnShell('input keyboard text "' + elementChar + '"').exec();
       }
       else if (elementCode >= 97 && elementCode <= 122) {
-          /** a~z **/
-          await execOnAndroidShell(elementCode-68, uiControlClient);
+        /** a~z **/
+        await execOnAndroidShell(elementCode-68, uiControlClient);
       }
       else {
         if (';' === elementChar) {
@@ -196,38 +199,95 @@ async function setText(text: String, uiControlClient: UiControlClient) {
         if (',' === elementChar) {
           await execOnAndroidShell(159, uiControlClient);
         }
-        // '-'.code -> uiDevice.pressKeyCode(KEYCODE_MINUS)
-        // '.'.code -> uiDevice.pressKeyCode(KEYCODE_PERIOD)
-        // '/'.code -> uiDevice.pressKeyCode(KEYCODE_SLASH)
-        // '`'.code -> uiDevice.pressKeyCode(KEYCODE_GRAVE)
-        // '\''.code -> uiDevice.pressKeyCode(KEYCODE_APOSTROPHE)
-        // '['.code -> uiDevice.pressKeyCode(KEYCODE_LEFT_BRACKET)
-        // ']'.code -> uiDevice.pressKeyCode(KEYCODE_RIGHT_BRACKET)
-        // '\\'.code -> uiDevice.pressKeyCode(KEYCODE_BACKSLASH)
-        // ' '.code -> uiDevice.pressKeyCode(KEYCODE_SPACE)
-        if ('@' === elementChar) {
-          await execOnAndroidShell(77, uiControlClient);
+        if ('-' === elementChar) {
+          await execOnAndroidShell(69, uiControlClient);
         }
-        // '#'.code -> uiDevice.pressKeyCode(KEYCODE_POUND)
-        // '*'.code -> uiDevice.pressKeyCode(KEYCODE_STAR)
-        // '('.code -> uiDevice.pressKeyCode(KEYCODE_NUMPAD_LEFT_PAREN)
-        // ')'.code -> uiDevice.pressKeyCode(KEYCODE_NUMPAD_RIGHT_PAREN)
-        // '+'.code -> uiDevice.pressKeyCode(KEYCODE_NUMPAD_ADD)
-        // '!'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_1)
-        // '$'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_4)
-        // '%'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_5)
-        // '^'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_6)
-        // '&'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_7)
-        // '"'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_APOSTROPHE)
-        // '{'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_LEFT_BRACKET)
-        // '}'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_RIGHT_BRACKET)
-        // ':'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_SEMICOLON)
-        // '|'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_BACKSLASH)
-        // '<'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_COMMA)
-        // '>'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_PERIOD)
-        // '?'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_SLASH)
-        // '~'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_GRAVE)
-        // '_'.code -> keyPressShiftedToEvents(uiDevice, KEYCODE_MINUS)
+        if ('.' === elementChar) {
+          await execOnAndroidShell(56, uiControlClient);
+        }
+        if ('/' === elementChar) {
+          await execOnAndroidShell(76, uiControlClient);
+        }
+        if ('`' === elementChar) {
+          await execOnAndroidShell(68, uiControlClient);
+        }
+        if ("'" === elementChar) {
+          await execOnAndroidShell(75, uiControlClient);
+        }
+        if ('[' === elementChar) {
+          await execOnAndroidShell(71, uiControlClient);
+        }
+        if (']' === elementChar) {
+          await execOnAndroidShell(72, uiControlClient);
+        }
+        if ('\\' === elementChar) {
+          await execOnAndroidShell(73, uiControlClient);
+        }
+        if (' ' === elementChar) {
+          await execOnAndroidShell(62, uiControlClient);
+        }
+        if ('#' === elementChar) {
+          await execOnAndroidShell(18, uiControlClient);
+        }
+        if ('*' === elementChar) {
+          await execOnAndroidShell(17, uiControlClient);
+        }
+        if ('(' === elementChar) {
+          await execOnAndroidShell(162, uiControlClient);
+        } 
+        if (')' === elementChar) {
+          await execOnAndroidShell(163, uiControlClient);
+        }
+        if ('+' === elementChar) {
+          await execOnAndroidShell(157, uiControlClient);
+        }
+        if ('!' === elementChar) {
+          await uiControlClient.execOnShell('input keyboard text "!"').exec();
+        }
+        if ('$' === elementChar) {
+          await uiControlClient.execOnShell('input keyboard text "$"').exec();
+        }
+        if ('%' === elementChar) {
+          await uiControlClient.execOnShell('input keyboard text "%"').exec();
+        }
+        if ('^' === elementChar) {
+          await uiControlClient.execOnShell('input keyboard text "^"').exec();
+        }
+        if ('&' === elementChar) {
+          await uiControlClient.execOnShell('input keyboard text "&"').exec();
+        }
+        // TODO How to do "
+        if ('"' === elementChar) {
+          await execOnAndroidShell(75, uiControlClient);
+        }
+        if ('{' === elementChar) {
+          await uiControlClient.execOnShell('input keyboard text "{"').exec();
+        }
+        if ('}' === elementChar) {
+          await uiControlClient.execOnShell('input keyboard text "}"').exec();
+        }
+        if (':' === elementChar) {
+          await uiControlClient.execOnShell('input keyboard text ":"').exec();
+        }
+        if ('|' === elementChar) {
+          await uiControlClient.execOnShell('input keyboard text "|"').exec();
+        }
+        if ('<' === elementChar) {
+          await uiControlClient.execOnShell('input keyboard text "<"').exec();
+        }
+        if ('>' === elementChar) {
+          await uiControlClient.execOnShell('input keyboard text ">"').exec();
+        }
+        if ('?' === elementChar) {
+          await uiControlClient.execOnShell('input keyboard text "?"').exec();
+        }
+        if ('~' === elementChar) {
+          await uiControlClient.execOnShell('input keyboard text "~"').exec();
+        }
+        // TODO
+        if ('_' === elementChar) {
+          await uiControlClient.execOnShell('input keyboard text "_"').exec();
+        }
       }
     }
 }
