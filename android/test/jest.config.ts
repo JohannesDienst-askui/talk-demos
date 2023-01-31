@@ -7,13 +7,13 @@ const config: Config.InitialOptions = {
   sandboxInjectedGlobals: [
     'Math',
   ],
-  reporters: [
-    "default",
-    // ["jest-html-reporter", {
-    //   "pageTitle": "Test Report"
-    // }]
-    "jest-junit"
-  ]
+  // reporters: [
+  //   "default",
+  //   ["jest-html-reporter", {
+  //     "pageTitle": "Test Report"
+  //   }]
+  //   "jest-junit"
+  // ]
 };
 
 // eslint-disable-next-line import/no-default-export

@@ -3,7 +3,7 @@ import { aui, auiAndroid } from './helper/jest.setup';
 
 describe('jest with askui', () => {
 
-  xit('annotate', async () => {
+  it('annotate', async () => {
     await aui.annotateInteractively();
   });
 
@@ -45,7 +45,7 @@ describe('jest with askui', () => {
     await aui.click().button().withText('Log In').exec();
   });
 
-  it('should fill up the textfields and push buttons', async () => {
+  xit('should fill up the textfields and push buttons', async () => {
 
     await auiAndroid.click().button().withText('reset').exec();
     await auiAndroid.waitFor(2000).exec();
@@ -59,7 +59,7 @@ describe('jest with askui', () => {
 
     await auiAndroid.click().text().withTextRegex('nter[\\s]{0,1}your[\\s]{0,1}emai').exec();
     await auiAndroid.waitFor(1000).exec();
-    await setTextAndroid('askui', auiAndroid);
+    await setTextAndroid('johannes.dienst@askui.com', auiAndroid);
     await auiAndroid.pressAndroidKey("back").exec();
     
     // Click and type the address
@@ -108,7 +108,7 @@ describe('jest with askui', () => {
       .exec();
     await aui
       .pressKey('escape')
-      .exec()
+      .exec();
     await aui
       .typeIn('<Github password>', { isSecret: true, secretMask: '**' })
       .textfield()
@@ -123,7 +123,7 @@ describe('jest with askui', () => {
     // wake up the phone 
     await auiAndroid.pressAndroidKey('wakeup').exec()
     
-    // start lastpass app 
+    // start lastpass authenticator app
     await auiAndroid.execOnShell("monkey -p com.lastpass.authenticator 1").exec()
 
     await waitUntil(auiAndroid.expect().text().withText('Github').exists().exec())
@@ -141,7 +141,9 @@ describe('jest with askui', () => {
     codeElements.sort((element1, element2) => (element1.bndbox.ymin <= element2.bndbox.ymin ? -1 : 1))
     // Using code[0], so the nearest element is selected
     // strip all non numeric characters from string
+    console.log(codeElements);
     const code = codeElements[0].text.replace(/\D/g, '');
+    console.log(code);
     await aui
       .typeIn(code, { isSecret: true, secretMask: '**' })
       .text().withText('XXXXXX')
@@ -190,6 +192,9 @@ async function setTextAndroid(text: String, uiControlClient: UiControlClient) {
         await execOnAndroidShell(elementCode-68, uiControlClient);
       }
       else {
+        if ('@' === elementChar) {
+          await execOnAndroidShell(77, uiControlClient);
+        }
         if (';' === elementChar) {
           await execOnAndroidShell(74, uiControlClient);
         }
