@@ -10,7 +10,7 @@ describe('jest with askui', () => {
     await aui.annotateInteractively();
 
     // await aui.mouseLeftclick().exec();
-    await aui.click().checkboxUnchecked().exec();
+    await aui.click().checkbox().exec();
   
     // Basic Authentication
     // https://authenticationtest.com/
@@ -23,7 +23,7 @@ describe('jest with askui', () => {
     await aui.typeIn('pa$$w0rd').textfield().contains().text().withText('Password').exec();
     await aui.click().text().withText("Don't Log Me In").exec();
     await aui.click().text().withText("Please Log Me In").exec();
-    await aui.click().checkboxUnchecked().exec();
+    await aui.click().checkbox().exec();
     await aui.click().button().contains().text().withText('Log In').exec();
   
   });
