@@ -2,9 +2,76 @@ import { UiControlClient } from 'askui';
 import { aui, auiAndroid } from './helper/jest.setup';
 
 describe('jest with askui', () => {
-
-  it('annotate', async () => {
+  
+  xit('annotate', async () => {
     await aui.annotateInteractively();
+    await auiAndroid.annotateInteractively();
+  });
+  
+  xit('passes ReCaptcha test', async () => {
+    // Navigate to https://www.google.com/recaptcha/api2/demo
+    await aui.mouseLeftClick().exec();
+    await aui.click().checkbox().exec();
+  });
+
+  xit('Login in Github with 2 FA and Lastpass App on Android device', async () => {
+
+    await aui.mouseLeftClick().exec();
+    await aui.click().text().withText('Sign in').exec();
+    await aui
+      .typeIn('askui-two-factor5', { isSecret: true, secretMask: '**' })
+      .textfield()
+      .below()
+      .text()
+      .withText('Username or email address')
+      .exec();
+    await aui
+      .pressKey('escape')
+      .exec();
+    await aui
+      .typeIn('t=YUNRZ6)_b/', { isSecret: true, secretMask: '**' })
+      .textfield()
+      .below()
+      .text()
+      .withText('Password')
+      .exec();
+
+    await aui.pressKey('tab').exec();
+    await aui.pressKey('enter').exec();
+
+    // wake up the phone
+    await auiAndroid.pressAndroidKey('wakeup').exec()
+
+    // start lastpass authenticator app
+    await auiAndroid.execOnShell("monkey -p com.lastpass.authenticator 1").exec()
+
+    await waitUntil(auiAndroid.expect().text().withText('Github').exists().exec())
+
+    const codeElements =
+      await auiAndroid
+        .get()
+        .text()
+        .below()
+        .text()
+        .withText('GitHub')
+        .exec();
+
+    // sort the returned elements based on their ymin
+    codeElements.sort((element1, element2) => (element1.bndbox.ymin <= element2.bndbox.ymin ? -1 : 1))
+    // Using code[0], so the nearest element is selected
+    // strip all non numeric characters from string
+    console.log(codeElements);
+    const code = codeElements[0].text.replace(/\D/g, '');
+    console.log(code);
+
+    await aui.pressKey('tab').exec();
+    await aui
+      .typeIn(code, { isSecret: true, secretMask: '**' })
+      .textfield()
+      .above()
+      .text()
+      .withText('Verify')
+      .exec();
   });
 
   xit ('automates Google Maps Canvas', async () => {
@@ -18,12 +85,6 @@ describe('jest with askui', () => {
     await aui.click().text().withText('Würzburg Residence').exec();
   });
 
-  xit('passes ReCaptcha test', async () => {
-
-    // Navigate to https://www.google.com/recaptcha/api2/demo
-    await aui.mouseLeftClick().exec();
-    await aui.click().checkboxUnchecked().exec();
-  });
 
   xit('Fills out a complex authentication form with text captcha', async () => {
     
@@ -93,64 +154,6 @@ describe('jest with askui', () => {
     await auiAndroid.mouseToggleDown().exec();
     await auiAndroid.moveMouseRelatively(-1500, 0).exec();
     await auiAndroid.mouseToggleUp().exec();
-  });
-
-  xit('Login in Github with 2 FA and Lastpass App on Android device', async () => {
-
-    await aui.mouseLeftClick().exec();
-    await aui.click().text().withText('Sign in').exec();
-    await aui
-      .typeIn('<Github username>', { isSecret: true, secretMask: '**' })
-      .textfield()
-      .below()
-      .text()
-      .withText('Username or email address')
-      .exec();
-    await aui
-      .pressKey('escape')
-      .exec();
-    await aui
-      .typeIn('<Github password>', { isSecret: true, secretMask: '**' })
-      .textfield()
-      .below()
-      .text()
-      .withText('Password')
-      .exec();
-
-    await aui.pressKey('tab').exec();
-    await aui.pressKey('enter').exec();
-
-    // wake up the phone 
-    await auiAndroid.pressAndroidKey('wakeup').exec()
-    
-    // start lastpass authenticator app
-    await auiAndroid.execOnShell("monkey -p com.lastpass.authenticator 1").exec()
-
-    await waitUntil(auiAndroid.expect().text().withText('Github').exists().exec())
-
-    const codeElements =
-      await auiAndroid
-        .get()
-        .text()
-        .below()
-        .text()
-        .withText('GitHub')
-        .exec();
-
-    // sort the returned elements based on their ymin 
-    codeElements.sort((element1, element2) => (element1.bndbox.ymin <= element2.bndbox.ymin ? -1 : 1))
-    // Using code[0], so the nearest element is selected
-    // strip all non numeric characters from string
-    console.log(codeElements);
-    const code = codeElements[0].text.replace(/\D/g, '');
-    console.log(code);
-    await aui
-      .typeIn(code, { isSecret: true, secretMask: '**' })
-      .text().withText('XXXXXX')
-      .above()
-      .text()
-      .withText('Verify')
-      .exec();
   });
 
 });
@@ -296,3 +299,5 @@ async function setTextAndroid(text: String, uiControlClient: UiControlClient) {
       }
     }
 }
+
+
