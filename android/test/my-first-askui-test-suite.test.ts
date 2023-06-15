@@ -7,17 +7,19 @@ describe('jest with askui', () => {
     await aui.annotateInteractively();
     await auiAndroid.annotateInteractively();
   });
-  
+
   xit('passes ReCaptcha test', async () => {
     // Navigate to https://www.google.com/recaptcha/api2/demo
     await aui.mouseLeftClick().exec();
     await aui.click().checkbox().exec();
   });
 
-  xit('Login in Github with 2 FA and Lastpass App on Android device', async () => {
+  it('Login in Github with 2 FA and Lastpass App on Android device', async () => {
 
     await aui.mouseLeftClick().exec();
+
     await aui.click().text().withText('Sign in').exec();
+
     await aui
       .typeIn('askui-two-factor5', { isSecret: true, secretMask: '**' })
       .textfield()
@@ -56,8 +58,6 @@ describe('jest with askui', () => {
         .withText('GitHub')
         .exec();
 
-    // sort the returned elements based on their ymin
-    codeElements.sort((element1, element2) => (element1.bndbox.ymin <= element2.bndbox.ymin ? -1 : 1))
     // Using code[0], so the nearest element is selected
     // strip all non numeric characters from string
     console.log(codeElements);
