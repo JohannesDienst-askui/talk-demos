@@ -5,8 +5,8 @@ describe('jest with askui', () => {
   
   xit('annotate', async () => {
     await aui.annotateInteractively();
-    await auiAndroid.annotateInteractively();
   });
+
 
   xit('passes ReCaptcha test', async () => {
     // Navigate to https://www.google.com/recaptcha/api2/demo
@@ -18,24 +18,22 @@ describe('jest with askui', () => {
 
     await aui.mouseLeftClick().exec();
 
-    await aui.click().text().withText('Sign in').exec();
+    await aui.click().text('Sign in').exec();
 
     await aui
       .typeIn('askui-two-factor5', { isSecret: true, secretMask: '**' })
       .textfield()
       .below()
-      .text()
-      .withText('Username or email address')
+      .text('Username or email address')
       .exec();
     await aui
       .pressKey('escape')
       .exec();
     await aui
-      .typeIn('t=YUNRZ6)_b/', { isSecret: true, secretMask: '**' })
+      .typeIn('!FhtVUXT_+o_1', { isSecret: true, secretMask: '**' })
       .textfield()
       .below()
-      .text()
-      .withText('Password')
+      .text('Password')
       .exec();
 
     await aui.pressKey('tab').exec();
@@ -54,11 +52,9 @@ describe('jest with askui', () => {
         .get()
         .text()
         .below()
-        .text()
-        .withText('GitHub')
+        .text('GitHub')
         .exec();
 
-    // Using code[0], so the nearest element is selected
     // strip all non numeric characters from string
     console.log(codeElements);
     const code = codeElements[0].text.replace(/\D/g, '');
@@ -69,8 +65,7 @@ describe('jest with askui', () => {
       .typeIn(code, { isSecret: true, secretMask: '**' })
       .textfield()
       .above()
-      .text()
-      .withText('Verify')
+      .text('Verify')
       .exec();
   });
 
